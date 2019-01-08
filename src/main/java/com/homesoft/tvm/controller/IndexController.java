@@ -1,8 +1,7 @@
 package com.homesoft.tvm.controller;
 
 import com.homesoft.tvm.model.Machine;
-import com.homesoft.tvm.service.CoinCreator;
-import com.homesoft.tvm.service.MachineService;
+import com.homesoft.tvm.service.MachineInitializer;
 import com.homesoft.tvm.service.TicketCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class IndexController {
 
     @Autowired
-    private MachineService machineService;
+    private MachineInitializer machineInitializer;
 
     @ModelAttribute("machine")
     public Machine getSessionMachine() {
-        return machineService.initializeMachine();
+        return machineInitializer.initializeMachine();
     }
 
     @GetMapping

@@ -4,7 +4,7 @@ import com.homesoft.tvm.model.Machine;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MachineService {
+public class MachineInitializer {
 
     public Machine initializeMachine() {
         Machine machine = new Machine();
@@ -16,7 +16,7 @@ public class MachineService {
 
         for (TicketCreator ticketType : TicketCreator.values()) {
             machine.getTicketKeeper()
-                    .addToKeeper(ticketType.createNewTicket(), 50);
+                    .addToKeeper(ticketType.createNewTicket().getType(), 50);
         }
 
         return machine;
