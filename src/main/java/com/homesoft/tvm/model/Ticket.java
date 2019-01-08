@@ -7,9 +7,9 @@ public class Ticket {
     private String type;
     private BigDecimal ticketCost;
 
-    //todo: enum ticket type (?)
-    public Ticket() {
-        super();
+    public Ticket(String type, String ticketCost) {
+        this.type = type;
+        this.ticketCost = new BigDecimal(ticketCost);
     }
 
     public String getType() {

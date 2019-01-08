@@ -6,8 +6,8 @@ public class Coin {
 
     private BigDecimal coinValue;
 
-    public Coin() {
-        super();
+    public Coin(String coinValue) {
+        this.coinValue = new BigDecimal(coinValue);
     }
 
     public BigDecimal getCoinValue() {
