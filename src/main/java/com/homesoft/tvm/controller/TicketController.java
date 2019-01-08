@@ -12,11 +12,12 @@ public class TicketController {
 
     @GetMapping(value = "/ticket")
     public String showTicketPage(
-            @SessionAttribute Machine machine,
+            @SessionAttribute("machine") Machine machine,
             @RequestParam String id,
             ModelMap model) {
 
         model.addAttribute("ticketType", id);
+
         return "ticket";
     }
 }

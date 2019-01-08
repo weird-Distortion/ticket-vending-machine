@@ -1,15 +1,13 @@
 package com.homesoft.tvm.model;
 
-import java.util.HashMap;
-
 public class Machine {
 
     private AbstractKeeper ticketKeeper;
     private AbstractKeeper changeKeeper;
 
     public Machine() {
-        this.ticketKeeper = new TicketKeeper(new HashMap<>());
-        this.changeKeeper = new ChangeKeeper(new HashMap<>());
+        this.ticketKeeper = new TicketKeeper();
+        this.changeKeeper = new ChangeKeeper();
     }
 
     public AbstractKeeper getTicketKeeper() {
