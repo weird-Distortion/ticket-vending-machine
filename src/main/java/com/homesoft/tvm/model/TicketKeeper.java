@@ -12,13 +12,6 @@ public class TicketKeeper implements Keeper{
     }
 
     @Override
-    public void addToKeeper(Object key, Integer value) {
-        assert map != null : "map is Null";
-        assert key != null : "key is Null";
-        map.putIfAbsent((String)key, value);
-    }
-
-    @Override
     public void giveOut(String type) {
         map.computeIfPresent(type, (k, v) -> v - 1);
     }

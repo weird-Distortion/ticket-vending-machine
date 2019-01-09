@@ -11,12 +11,16 @@ public class MachineInitializer {
 
         for (CoinCreator coinType : CoinCreator.values()) {
             machine.getChangeKeeper()
-                    .addToKeeper(coinType.createNewCoin(), 50);
+                    .addToKeeper(machine.getChangeKeeper().getMap(),
+                            coinType.createNewCoin(),
+                            50);
         }
 
         for (TicketCreator ticketType : TicketCreator.values()) {
             machine.getTicketKeeper()
-                    .addToKeeper(ticketType.createNewTicket().getType(), 50);
+                    .addToKeeper(machine.getTicketKeeper().getMap(),
+                            ticketType.createNewTicket().getType(),
+                            50);
         }
 
         return machine;

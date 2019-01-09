@@ -4,10 +4,12 @@ public class Machine {
 
     private Keeper ticketKeeper;
     private Keeper changeKeeper;
+    private UserInput userInput;
 
     public Machine() {
         this.ticketKeeper = new TicketKeeper();
         this.changeKeeper = new ChangeKeeper();
+        this.userInput = new UserInput();
     }
 
     public Keeper getTicketKeeper() {
@@ -24,5 +26,13 @@ public class Machine {
 
     public void setChangeKeeper(Keeper changeKeeper) {
         this.changeKeeper = changeKeeper;
+    }
+
+    public UserInput getUserInput() {
+        return userInput;
+    }
+
+    public void setUserInput(UserInput userInput) {
+        this.userInput = userInput;
     }
 }

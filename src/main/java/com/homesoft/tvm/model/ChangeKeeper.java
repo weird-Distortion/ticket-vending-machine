@@ -12,13 +12,6 @@ public class ChangeKeeper implements Keeper {
     }
 
     @Override
-    public void addToKeeper(Object key, Integer value) {
-        assert map != null : "map is Null";
-        assert key != null : "key is Null";
-        map.putIfAbsent((Coin)key, value);
-    }
-
-    @Override
     public void giveOut(String type) {
 
     }

@@ -11,9 +11,11 @@
     <div class="col-sm-2">
       right part
       <form action="#">
-        <input type="text" value="test amount"><br>
-        <input type="submit" value="Insert">
-        <button class="btn btn-primary">buy</button>
+        <form:form method="post" modelAttribute="coinAtt">
+          <div><form:input type="number" path="coinValue" step="0.1" min="0"/></div>
+          <%--<form:input type="submit" path="coinValue" value="Insert"/>--%>
+          <%--<button class="btn btn-primary">buy</button>--%>
+        </form:form>
       </form>
     </div>
   </div>
