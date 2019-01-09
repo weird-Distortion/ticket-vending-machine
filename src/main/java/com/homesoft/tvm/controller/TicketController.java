@@ -2,8 +2,6 @@ package com.homesoft.tvm.controller;
 
 import com.homesoft.tvm.model.Coin;
 import com.homesoft.tvm.model.Machine;
-import com.homesoft.tvm.model.Ticket;
-import com.homesoft.tvm.service.CoinCreator;
 import com.homesoft.tvm.service.MachineService;
 import com.homesoft.tvm.service.TicketCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ public class TicketController {
     @Autowired
     private MachineService machineService;
 
-    @ModelAttribute("theCoin")
+    @ModelAttribute("userCoin")
     public Coin setUpCoin() {
         return new Coin("0");
     }
@@ -26,14 +24,26 @@ public class TicketController {
     public String showTicketPage(
             @SessionAttribute("machine") Machine machine,
             @RequestParam String id,
-            @ModelAttribute("theCoin") Coin coin,
+            @ModelAttribute("userCoin") Coin coin,
             ModelMap model) {
 
-        Ticket tempTicket = TicketCreator.valueOf(id).createNewTicket();
-        model.addAttribute("ticketType", tempTicket.getType());
-        model.addAttribute("coinAtt", coin);
+        model.addAttribute("ticketType", TicketCreator.valueOf(id).createNewTicket().getType());
 //        machineLogic.giveOutTicket(machine, TicketCreator.valueOf(id).createNewTicket().getType());
 
         return "ticket";
+    }
+
+    @PostMapping(value = "/ticket")
+    public String insertCoin(
+            @SessionAttribute("machine") Machine machine,
+            @RequestParam String id,
+            @ModelAttribute("userCoin") Coin coin,
+            ModelMap model) {
+
+        machine.getUserInput().insertNewCoin(String.valueOf(coin.getCoinValue()));
+
+//        machine.getUserInput().getUserInputList().forEach(System.out::println);
+
+        return "redirect:/ticket?id=" + id;
     }
 }
