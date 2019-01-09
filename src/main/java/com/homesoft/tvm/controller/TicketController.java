@@ -2,6 +2,7 @@ package com.homesoft.tvm.controller;
 
 import com.homesoft.tvm.model.Coin;
 import com.homesoft.tvm.model.Machine;
+import com.homesoft.tvm.service.CreatorService;
 import com.homesoft.tvm.service.MachineService;
 import com.homesoft.tvm.service.TicketCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class TicketController {
     @Autowired
     private MachineService machineService;
 
+    @Autowired
+    private CreatorService creatorService;
+
     @ModelAttribute("userCoin")
     public Coin setUpCoin() {
         return new Coin("0");
@@ -27,7 +31,7 @@ public class TicketController {
             @ModelAttribute("userCoin") Coin coin,
             ModelMap model) {
 
-        model.addAttribute("ticketType", TicketCreator.valueOf(id).createNewTicket().getType());
+        model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
 //        machineLogic.giveOutTicket(machine, TicketCreator.valueOf(id).createNewTicket().getType());
 
         return "ticket";

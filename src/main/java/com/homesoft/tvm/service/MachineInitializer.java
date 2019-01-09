@@ -9,6 +9,7 @@ public class MachineInitializer {
     public Machine initializeMachine() {
         Machine machine = new Machine();
 
+        //todo: encapsulate somehow (?)
         for (CoinCreator coinType : CoinCreator.values()) {
             machine.getChangeKeeper()
                     .addToKeeper(machine.getChangeKeeper().getMap(),
