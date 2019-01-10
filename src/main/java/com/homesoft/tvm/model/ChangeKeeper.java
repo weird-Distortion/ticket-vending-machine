@@ -13,7 +13,7 @@ public class ChangeKeeper implements Keeper {
 
     @Override
     public void giveOut(String type) {
-
+        map.computeIfPresent(type, (k, v) -> v - 1);
     }
 
     @Override
