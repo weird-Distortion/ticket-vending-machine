@@ -10,6 +10,11 @@
     </div>
     <div class="col-sm-2">
       right part
+      <div>
+        <c:forEach items="${userInputList}" var="userCoinValue">
+          ${userCoinValue}
+        </c:forEach>
+      </div>
       <form:form method="post" modelAttribute="userCoin">
         <div><form:input type="number" path="coinValue" step="0.1" min="0"/></div>
         <form:input type="submit" path="coinValue" value="Insert"/>

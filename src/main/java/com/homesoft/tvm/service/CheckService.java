@@ -10,17 +10,12 @@ import java.util.List;
 @Service
 public class CheckService {
 
-    public boolean isMoneyAreReal(Machine machine, List<String> userMoney) {
-        if (machine.getChangeKeeper()
+    public boolean isCoinFake(Machine machine, String userMoney) {
+        return !machine.getChangeKeeper()
                 .getMap()
                 .keySet()
-                .containsAll(userMoney)) {
+                .contains(userMoney);
 
-            System.out.println("There is fake money");
-            return true;
-        }
-
-        return false;
     }
 
     public boolean isEnoughMoney(Ticket ticketType, List<String> userMoney) {

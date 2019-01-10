@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
-@SessionAttributes(value = "machine")
+@SessionAttributes(value = {"machine", "userInputList"})
 public class IndexController {
 
     @Autowired
@@ -22,9 +25,15 @@ public class IndexController {
         return machineInitializer.initializeMachine();
     }
 
+    @ModelAttribute("userInputList")
+    public List<String> getSessionUserInputList() {
+        return new ArrayList<>();
+    }
+
     @GetMapping
     public String showMainPage(
             @ModelAttribute("machine") Machine machine,
+            @ModelAttribute("userInputList") ArrayList userInputList,
             ModelMap model) {
 
         model.addAttribute("ticketTypes", TicketCreator.values());

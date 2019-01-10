@@ -13,7 +13,7 @@ public class MachineInitializer {
         for (CoinCreator coinType : CoinCreator.values()) {
             machine.getChangeKeeper()
                     .addToKeeper(machine.getChangeKeeper().getMap(),
-                            coinType.createNewCoin(),
+                            String.valueOf(coinType.createNewCoin().getCoinValue()),
                             50);
         }
 
