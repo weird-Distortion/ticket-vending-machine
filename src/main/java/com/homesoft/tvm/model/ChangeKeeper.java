@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ChangeKeeper implements Keeper {
 
-    private Map<Coin, Integer> map;
+    private Map<String, Integer> map;
 
     public ChangeKeeper() {
         this.map = new HashMap<>();
@@ -17,7 +17,7 @@ public class ChangeKeeper implements Keeper {
     }
 
     @Override
-    public Map<Coin, Integer> getMap() {
+    public Map<String, Integer> getMap() {
         return map;
     }
 }
