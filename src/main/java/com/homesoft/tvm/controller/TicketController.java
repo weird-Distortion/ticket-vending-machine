@@ -38,9 +38,8 @@ public class TicketController {
             ModelMap model) {
 
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
-        model.addAttribute("userInput", userInputList);
+//        model.addAttribute("userInputList", userInputList);
         model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
-//        machineLogic.giveOutTicket(machine, TicketCreator.valueOf(id).createNewTicket().getType());
 
         return "ticket";
     }
@@ -53,7 +52,6 @@ public class TicketController {
             @ModelAttribute("userCoin") Coin coin,
             ModelMap model) {
 
-        //check coin if it's fake ot not TODO: create explicit page to bust the forger
         if (checkService.isCoinFake(machine, String.valueOf(coin.getCoinValue()))) {
             userInputList.clear();
             return "redirect:/busted";
@@ -65,11 +63,10 @@ public class TicketController {
         if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
             System.out.println("it's enough");
             System.out.println(machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList).toString());
+            return "redirect:/success";
         }
 
         model.addAttribute("userInputList", userInputList);
-
-//        machine.getUserInput().getUserInputList().forEach(System.out::println);
 
         return "redirect:/ticket?id=" + id;
     }

@@ -1,5 +1,6 @@
 package com.homesoft.tvm.service;
 
+import com.homesoft.tvm.model.Coin;
 import com.homesoft.tvm.model.Machine;
 import com.homesoft.tvm.model.Ticket;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,11 @@ public class MachineService {
                 .map(coin ->
                         new BigDecimal(String.valueOf(coin)))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public boolean isEnoughChange(Machine machine, Coin coinType) {
+
+        return false;
     }
 
     private List<String> getAvailableChangeCoins(Machine machine) {

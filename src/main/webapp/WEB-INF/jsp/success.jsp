@@ -1,9 +1,9 @@
 <%@ include file="common/header.jspf" %>
 
 <div class="container">
-  sir, you'r got busted
+  Ticket purchased
 
-  <a href="index">I promise to be good</a>
+  <a href="index">Main page</a>
 </div>
 
 <%@ include file="common/footer.jspf" %>

@@ -4,11 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class BustedController {
+public class SuccessController {
 
-    @GetMapping(value = "/busted")
-    public String showBustedPage() {
+    @GetMapping(value = "/success")
+    public String showSuccessPage() {
+
 
         return "success";
     }
+
 }
