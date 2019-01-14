@@ -56,7 +56,7 @@ public class TicketController {
         //check coin if it's fake ot not TODO: create explicit page to bust the forger
         if (checkService.isCoinFake(machine, String.valueOf(coin.getCoinValue()))) {
             userInputList.clear();
-            return "redirect:/index";
+            return "redirect:/busted";
         }
 
         machine.getUserInput().insertNewCoin(String.valueOf(coin.getCoinValue()));
