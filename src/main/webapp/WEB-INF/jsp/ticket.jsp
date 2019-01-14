@@ -11,6 +11,7 @@
     <div class="col-sm-2">
       right part
       <div>
+        Left to insert:
         ${moneyLeft}
       </div>
       <div>

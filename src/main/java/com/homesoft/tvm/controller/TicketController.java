@@ -37,8 +37,6 @@ public class TicketController {
             @ModelAttribute("userCoin") Coin coin,
             ModelMap model) {
 
-//        String moneyLeft = checkService.checkForLeft(userInputList, creatorService.getNewTicket(id));
-
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
         model.addAttribute("userInput", userInputList);
         model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
@@ -66,6 +64,7 @@ public class TicketController {
 
         if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
             System.out.println("it's enough");
+            System.out.println(machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList).toString());
         }
 
         model.addAttribute("userInputList", userInputList);

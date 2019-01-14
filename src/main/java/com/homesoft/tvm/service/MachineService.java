@@ -22,11 +22,11 @@ public class MachineService {
         BigDecimal userMoneyTotal = countUserMoneyTotal(userMoney);
         BigDecimal changeToGiveOut = userMoneyTotal.subtract(ticketType.getTicketCost());
 
-        for (int i = availableChangeList.size(); i > 0; i--) {
+        for (int i = availableChangeList.size() - 1; i > 0; i--) {
             BigDecimal coinToCompare = BigDecimal.valueOf(Double.valueOf(availableChangeList.get(i)));
 
-            if (changeToGiveOut.compareTo(coinToCompare) <= 0) {
-                changeToGiveOut.subtract(coinToCompare);
+            if (changeToGiveOut.compareTo(coinToCompare) >= 0) {
+                changeToGiveOut = changeToGiveOut.subtract(coinToCompare);
                 machine.getChangeKeeper().giveOut(String.valueOf(coinToCompare));
                 resultChangeList.add(String.valueOf(coinToCompare));
                 i++;
@@ -40,11 +40,10 @@ public class MachineService {
 
     private BigDecimal countUserMoneyTotal(List<String> userMoney) {
 
-        BigDecimal userMoneyTotal = new BigDecimal("0.0");
-
-        userMoney.forEach(coin -> userMoneyTotal.add(BigDecimal.valueOf(Double.valueOf(coin))));
-
-        return userMoneyTotal;
+        return userMoney.stream()
+                .map(coin ->
+                        new BigDecimal(String.valueOf(coin)))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private List<String> getAvailableChangeCoins(Machine machine) {
@@ -57,6 +56,7 @@ public class MachineService {
                 .forEach(key ->
                         availableChangeList.add(String.valueOf(key)));
 
+        availableChangeList.sort(Comparable::compareTo);
         return availableChangeList;
     }
 }
