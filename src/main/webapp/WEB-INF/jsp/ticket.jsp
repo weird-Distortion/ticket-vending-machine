@@ -11,6 +11,9 @@
     <div class="col-sm-2">
       right part
       <div>
+        ${moneyLeft}
+      </div>
+      <div>
         <c:forEach items="${userInputList}" var="userCoinValue">
           ${userCoinValue}
         </c:forEach>

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class CheckService {
 
@@ -15,14 +17,28 @@ public class CheckService {
                 .getMap()
                 .keySet()
                 .contains(userMoney);
-
     }
 
     public boolean isEnoughMoney(Ticket ticketType, List<String> userMoney) {
         BigDecimal userMoneyTotal = new BigDecimal("0.0");
-        userMoney.forEach(coin -> userMoneyTotal.add(BigDecimal.valueOf(Double.valueOf(coin))));
+        for (String coin : userMoney) {
+            userMoneyTotal = userMoneyTotal.add(BigDecimal.valueOf(Double.valueOf(coin)));
+        }
 
         return ticketType.getTicketCost().compareTo(userMoneyTotal) <= 0;
+    }
 
+    public String checkForLeft(List<String> userInput, Ticket ticket) {
+        BigDecimal sum =
+                userInput.stream()
+                        .map(coin -> BigDecimal.valueOf(Double.parseDouble(coin)))
+                .collect(toList())
+                .stream()
+                .reduce(BigDecimal::add)
+                .orElseGet(ticket::getTicketCost);
+
+        BigDecimal result = ticket.getTicketCost().subtract(sum);
+
+        return String.valueOf(result);
     }
 }

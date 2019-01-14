@@ -32,13 +32,16 @@ public class TicketController {
     @GetMapping(value = "/ticket")
     public String showTicketPage(
             @SessionAttribute("machine") Machine machine,
-            @SessionAttribute("userInputList") ArrayList userInputList,
+            @SessionAttribute("userInputList") ArrayList<String> userInputList,
             @RequestParam String id,
             @ModelAttribute("userCoin") Coin coin,
             ModelMap model) {
 
+//        String moneyLeft = checkService.checkForLeft(userInputList, creatorService.getNewTicket(id));
+
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
         model.addAttribute("userInput", userInputList);
+        model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
 //        machineLogic.giveOutTicket(machine, TicketCreator.valueOf(id).createNewTicket().getType());
 
         return "ticket";
@@ -60,6 +63,10 @@ public class TicketController {
 
         machine.getUserInput().insertNewCoin(String.valueOf(coin.getCoinValue()));
         userInputList.add(String.valueOf(coin.getCoinValue()));
+
+        if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
+            System.out.println("it's enough");
+        }
 
         model.addAttribute("userInputList", userInputList);
 
