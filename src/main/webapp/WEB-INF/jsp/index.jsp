@@ -10,6 +10,11 @@
           <a href="/ticket?id=${ticket.name()}">${ticket.name()}</a>
         </div>
       </c:forEach>
+      <div>
+        <form:form method="post" modelAttribute="machine">
+          <button class="btn btn-info" type="submit">Fill machine</button>
+        </form:form>
+      </div>
     </div>
   </div>
 </div>

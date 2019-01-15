@@ -37,10 +37,10 @@ public class CheckService {
         BigDecimal sum =
                 userInput.stream()
                         .map(coin -> BigDecimal.valueOf(Double.parseDouble(coin)))
-                .collect(toList())
-                .stream()
-                .reduce(BigDecimal::add)
-                .orElseGet(ticket::getTicketCost);
+                        .collect(toList())
+                        .stream()
+                        .reduce(BigDecimal::add)
+                        .orElseGet(ticket::getTicketCost);
 
         BigDecimal result = ticket.getTicketCost().subtract(sum);
 

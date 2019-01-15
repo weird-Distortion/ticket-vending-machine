@@ -1,6 +1,5 @@
 package com.homesoft.tvm.service;
 
-import com.homesoft.tvm.model.Coin;
 import com.homesoft.tvm.model.Machine;
 import com.homesoft.tvm.model.Ticket;
 import org.springframework.stereotype.Service;
@@ -68,5 +67,27 @@ public class MachineService {
 
         availableChangeList.sort(Comparable::compareTo);
         return availableChangeList;
+    }
+
+    public void fillChangeKeeper(Machine machine) {
+        //todo to encapsulate
+        machine.getChangeKeeper()
+                .getMap()
+                .keySet()
+                .forEach(coinType ->
+                        machine.getChangeKeeper()
+                                .getMap()
+                                .computeIfPresent(coinType, (k, v) -> v + 50));
+    }
+
+    public void fillTicketKeeper(Machine machine) {
+        //todo to encapsulate
+        machine.getTicketKeeper()
+                .getMap()
+                .keySet()
+                .forEach(ticketType ->
+                        machine.getTicketKeeper()
+                                .getMap()
+                                .computeIfPresent(ticketType, (k, v) -> v + 50));
     }
 }
