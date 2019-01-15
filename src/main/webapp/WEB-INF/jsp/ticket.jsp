@@ -5,7 +5,8 @@
   <div class="row">
     <div class="col-sm-4">
       left part
-      <div>${ticketType}</div>
+      <div>Type: ${ticketType}</div>
+      <div>Cost: ${ticketCost}</div>
       <a href="/index">Cancel</a>
     </div>
     <div class="col-sm-2">

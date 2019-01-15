@@ -44,6 +44,7 @@ public class TicketController {
         }
 
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
+        model.addAttribute("ticketCost", creatorService.getNewTicket(id).getTicketCost());
         model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
 
         return "ticket";
@@ -68,7 +69,8 @@ public class TicketController {
         if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
             List<String> tempChange = machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList);
 
-            if (userInputList.containsAll(tempChange)) {
+            if (userInputList.containsAll(tempChange)
+                    && userInputList.size() == tempChange.size()) {
                 model.addAttribute("resultText", "There is no change!");
                 model.addAttribute("resultList", userInputList);
 
