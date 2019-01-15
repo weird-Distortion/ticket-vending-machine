@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class MachineService {
 
-    public void giveOutTicket(Machine machine, String type) {
-        machine.getTicketKeeper().giveOut(type);
+    public String giveOutTicket(Machine machine, String type) {
+        return machine.getTicketKeeper().giveOut(type);
     }
 
     public List<String> giveOutChange(Machine machine, Ticket ticketType, List<String> userMoney) {
@@ -27,16 +27,20 @@ public class MachineService {
             BigDecimal coinToCompare = BigDecimal.valueOf(Double.valueOf(availableChangeList.get(i)));
 
             if (changeToGiveOut.compareTo(coinToCompare) >= 0) {
-                changeToGiveOut = changeToGiveOut.subtract(coinToCompare);
-                machine.getChangeKeeper().giveOut(String.valueOf(coinToCompare));
-                resultChangeList.add(String.valueOf(coinToCompare));
-                i++;
+
+                if (!machine.getChangeKeeper().giveOut(String.valueOf(coinToCompare)).equals("-1")) {
+                    changeToGiveOut = changeToGiveOut.subtract(coinToCompare);
+                    resultChangeList.add(machine.getChangeKeeper().giveOut(String.valueOf(coinToCompare)));
+                    i++;
+                }
             }
         }
 
         resultChangeList.sort(Comparable::compareTo);
 
-        return resultChangeList;
+        if (isEnoughChange(changeToGiveOut)) return resultChangeList;
+
+        return userMoney;
     }
 
     private BigDecimal countUserMoneyTotal(List<String> userMoney) {
@@ -47,9 +51,9 @@ public class MachineService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public boolean isEnoughChange(Machine machine, Coin coinType) {
+    private boolean isEnoughChange(BigDecimal changeToGiveOut) {
 
-        return false;
+        return changeToGiveOut.compareTo(BigDecimal.ZERO) == 0;
     }
 
     private List<String> getAvailableChangeCoins(Machine machine) {

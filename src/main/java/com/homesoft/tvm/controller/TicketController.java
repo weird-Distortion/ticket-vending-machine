@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TicketController {
@@ -37,8 +38,12 @@ public class TicketController {
             @ModelAttribute("userCoin") Coin coin,
             ModelMap model) {
 
+        if (machineService.giveOutTicket(machine, creatorService.getNewTicket(id).getType()).equals("-1")) {
+            model.addAttribute("resultText", "There is no available tickets!");
+            return "success";
+        }
+
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
-//        model.addAttribute("userInputList", userInputList);
         model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
 
         return "ticket";
@@ -54,16 +59,25 @@ public class TicketController {
 
         if (checkService.isCoinFake(machine, String.valueOf(coin.getCoinValue()))) {
             userInputList.clear();
-            return "redirect:/busted";
+            return "busted";
         }
 
         machine.getUserInput().insertNewCoin(String.valueOf(coin.getCoinValue()));
         userInputList.add(String.valueOf(coin.getCoinValue()));
 
         if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
-            System.out.println("it's enough");
-            System.out.println(machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList).toString());
-            return "redirect:/success";
+            List<String> tempChange = machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList);
+
+            if (userInputList.containsAll(tempChange)) {
+                model.addAttribute("resultText", "There is no change!");
+                model.addAttribute("resultList", userInputList);
+
+                return "success";
+            }
+
+            model.addAttribute("resultText", "OK! Here is your change");
+            model.addAttribute("resultList", tempChange);
+            return "success";
         }
 
         model.addAttribute("userInputList", userInputList);

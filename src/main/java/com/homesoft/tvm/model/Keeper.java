@@ -10,6 +10,6 @@ public interface Keeper {
         map.putIfAbsent(key, value);
     }
 
-    void giveOut(String type);
+    String giveOut(String type);
     Map<String, Integer> getMap();
 }

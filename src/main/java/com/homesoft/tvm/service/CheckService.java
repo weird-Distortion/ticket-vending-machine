@@ -1,6 +1,5 @@
 package com.homesoft.tvm.service;
 
-import com.homesoft.tvm.model.Coin;
 import com.homesoft.tvm.model.Machine;
 import com.homesoft.tvm.model.Ticket;
 import org.springframework.stereotype.Service;
@@ -29,10 +28,10 @@ public class CheckService {
         return ticketType.getTicketCost().compareTo(userMoneyTotal) <= 0;
     }
 
-    public boolean isEnoughTickets(Machine machine, Ticket ticketType) {
-
-        return machine.getTicketKeeper().getMap().get(ticketType.getType()) > 0;
-    }
+//    public boolean isEnoughTickets(Machine machine, Ticket ticketType) {
+//
+//        return machine.getTicketKeeper().getMap().get(ticketType.getType()) > 0;
+//    }
 
     public String checkForLeft(List<String> userInput, Ticket ticket) {
         BigDecimal sum =

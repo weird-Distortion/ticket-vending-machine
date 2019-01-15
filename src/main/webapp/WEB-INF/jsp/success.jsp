@@ -1,8 +1,10 @@
 <%@ include file="common/header.jspf" %>
 
 <div class="container">
-  Ticket purchased
+  <div>${resultText}</div>
+  <div>${resultList}</div>
 
+  <br>
   <a href="index">Main page</a>
 </div>
 
