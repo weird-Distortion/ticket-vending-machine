@@ -43,9 +43,14 @@ public class TicketController {
             return "success";
         }
 
+        if (userInputList.isEmpty()) {
+            model.addAttribute("moneyLeft", creatorService.getNewTicket(id).getTicketCost());
+        } else {
+            model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
+        }
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
         model.addAttribute("ticketCost", creatorService.getNewTicket(id).getTicketCost());
-        model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
+
 
         return "ticket";
     }
