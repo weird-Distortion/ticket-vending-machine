@@ -6,7 +6,7 @@
       <div class="p-2 bd-highlight tvm">Ticket Vending Machine</div>
       <div class="col-sm d-flex flex-row justify-content-around">
         <div class="ticket-info">
-          <div class="ticket-option">Ticket info: </div>
+          <div class="ticket-option">Ticket info:</div>
           <div class="info-option">Type: <span class="argument">${ticketType}</span></div>
           <div class="info-option">Cost: <span class="argument">${ticketCost}</span> Betelgeuse coins</div>
         </div>
@@ -28,7 +28,9 @@
           <div><form:input type="number" path="coinValue" step="0.1" min="0" cssClass="coin-input"/></div>
           <form:input type="submit" path="coinValue" value="Insert"/>
         </form:form>
-        <div><a href="/index" class="btn btn-danger ticket-type-btn">Cancel</a></div>
+        <div class="ticket-type">
+          <a href="/index" class="btn btn-danger ticket-type-btn">Cancel</a>
+        </div>
       </div>
     </div>
   </div>
