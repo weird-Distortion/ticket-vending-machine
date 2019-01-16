@@ -73,12 +73,13 @@ public class TicketController {
                     && userInputList.size() == tempChange.size()) {
                 model.addAttribute("resultText", "There is no change!");
                 model.addAttribute("resultList", userInputList);
-
+                userInputList.clear();
                 return "success";
             }
 
             model.addAttribute("resultText", "OK! Here is your change");
             model.addAttribute("resultList", tempChange);
+            userInputList.clear();
             return "success";
         }
 
