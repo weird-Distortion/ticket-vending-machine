@@ -28,3 +28,26 @@
     color: orangered;
     text-shadow: 0 1px 2px black;
 }
+
+.coin-input {
+    width: 57px;
+}
+
+.ticket-logo {
+    margin: auto 0;
+}
+
+#logo {
+    width: 150px
+}
+
+.argument {
+    color: orange;
+    text-shadow: 0 1px 3px black;
+}
+
+.info-option {
+    margin: 25px 0;
+    font-size: 20px;
+    text-shadow: 0 0 2px orange;
+}

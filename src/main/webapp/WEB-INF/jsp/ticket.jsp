@@ -1,29 +1,35 @@
 <%@ include file="common/header.jspf" %>
 
 <div class="container">
-  <div style="text-align: center">TVM</div>
   <div class="row">
-    <div class="col-sm-4">
-      left part
-      <div>Type: ${ticketType}</div>
-      <div>Cost: ${ticketCost}</div>
-      <a href="/index">Cancel</a>
-    </div>
-    <div class="col-sm-2">
-      right part
-      <div>
-        Left to insert:
-        ${moneyLeft}
+    <div class="d-flex flex-column flex-container border border-danger rounded bg-info">
+      <div class="p-2 bd-highlight tvm">Ticket Vending Machine</div>
+      <div class="col-sm d-flex flex-row justify-content-around">
+        <div class="ticket-info">
+          <div class="ticket-option">Ticket info: </div>
+          <div class="info-option">Type: <span class="argument">${ticketType}</span></div>
+          <div class="info-option">Cost: <span class="argument">${ticketCost}</span> Betelgeuse coins</div>
+        </div>
+        <div class="ticket-logo">
+          <img src="${pageContext.request.contextPath}../png/tow.png" alt="towel" id="logo">
+        </div>
       </div>
-      <div>
-        <c:forEach items="${userInputList}" var="userCoinValue">
-          ${userCoinValue}
-        </c:forEach>
+      <div class="col-sm border-top border-danger">
+        <div>
+          <div class="ticket-option">Left: <span class="argument">${moneyLeft}</span></div>
+        </div>
+        <div>
+          <span>Your input: </span>
+          <c:forEach items="${userInputList}" var="userCoinValue">
+            <span class="argument">${userCoinValue} |</span>
+          </c:forEach>
+        </div>
+        <form:form method="post" modelAttribute="userCoin">
+          <div><form:input type="number" path="coinValue" step="0.1" min="0" cssClass="coin-input"/></div>
+          <form:input type="submit" path="coinValue" value="Insert"/>
+        </form:form>
+        <div><a href="/index" class="btn btn-danger ticket-type-btn">Cancel</a></div>
       </div>
-      <form:form method="post" modelAttribute="userCoin">
-        <div><form:input type="number" path="coinValue" step="0.1" min="0"/></div>
-        <form:input type="submit" path="coinValue" value="Insert"/>
-      </form:form>
     </div>
   </div>
 </div>
