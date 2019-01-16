@@ -1,6 +1,5 @@
 package com.homesoft.tvm.controller;
 
-import com.homesoft.tvm.model.Coin;
 import com.homesoft.tvm.model.Machine;
 import com.homesoft.tvm.service.MachineInitializer;
 import com.homesoft.tvm.service.MachineService;
@@ -33,7 +32,7 @@ public class IndexController {
         return new ArrayList<>();
     }
 
-    @GetMapping
+    @GetMapping(value = "/index")
     public String showMainPage(
             @ModelAttribute("machine") Machine machine,
             @ModelAttribute("userInputList") ArrayList userInputList,
@@ -44,7 +43,7 @@ public class IndexController {
         return "index";
     }
 
-    @PostMapping
+    @PostMapping(value = "/index")
     public String fillMachine(
             @SessionAttribute("machine") Machine machine,
             ModelMap model) {
