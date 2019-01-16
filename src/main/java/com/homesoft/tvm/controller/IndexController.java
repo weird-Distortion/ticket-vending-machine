@@ -10,7 +10,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toMap;
 
 @Controller
 @SessionAttributes(value = {"machine", "userInputList"})
@@ -33,12 +37,14 @@ public class IndexController {
     }
 
     @GetMapping(value = "/index")
-    public String showMainPage(
-            @ModelAttribute("machine") Machine machine,
-            @ModelAttribute("userInputList") ArrayList userInputList,
-            ModelMap model) {
+    public String showMainPage(ModelMap model) {
 
-        model.addAttribute("ticketTypes", TicketCreator.values());
+        Map<String, String> ticketMap =
+                Arrays.stream(TicketCreator.values())
+                        .collect(toMap(String::valueOf, id ->
+                                id.createNewTicket().getType()));
+
+        model.addAttribute("ticketTypes", ticketMap);
 
         return "index";
     }

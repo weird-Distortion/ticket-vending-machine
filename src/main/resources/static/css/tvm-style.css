@@ -1,3 +1,30 @@
-body {
-    background-color: rebeccapurple;
+.flex-container {
+    box-shadow: 0 0 2px black;
+    width: 480px;
+    height: 480px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.ticket-type {
+    margin: 10px auto;
+}
+
+.ticket-type-btn {
+    box-shadow: 0 0 1px black;
+}
+
+#fill-btn {
+    margin: auto;
+}
+
+.ticket-option {
+    font-size: 25px;
+    text-shadow: 0 0 1px orange;
+}
+
+.tvm {
+    font-size: 35px;
+    color: orangered;
+    text-shadow: 0 1px 2px black;
 }
