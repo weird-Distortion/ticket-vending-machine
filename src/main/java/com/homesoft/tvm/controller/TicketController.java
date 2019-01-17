@@ -73,6 +73,7 @@ public class TicketController {
 
         if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
             List<String> tempChange = machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList);
+            String ticketType = creatorService.getNewTicket(id).getType();
 
             if (userInputList.containsAll(tempChange)
                     && userInputList.size() == tempChange.size()) {
@@ -82,8 +83,9 @@ public class TicketController {
                 return "success";
             }
 
-            model.addAttribute("resultText", "OK! Here is your change");
+            model.addAttribute("resultText", "Success!");
             model.addAttribute("resultList", tempChange);
+            model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
             userInputList.clear();
             return "success";
         }

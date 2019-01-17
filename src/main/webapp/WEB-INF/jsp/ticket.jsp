@@ -25,10 +25,14 @@
           </c:forEach>
         </div>
         <form:form method="post" modelAttribute="userCoin">
-          <div><form:input type="number" path="coinValue" step="0.1" min="0" cssClass="coin-input"/></div>
-          <form:input type="submit" path="coinValue" value="Insert"/>
+          <div class="ticket-type">
+            <form:input type="number" path="coinValue" step="0.1" min="0" cssClass="coin-input"/>
+          </div>
+          <div class="ticket-type">
+            <form:button type="submit" path="coinValue" class="btn btn-success ticket-type-btn">Insert</form:button>
+          </div>
         </form:form>
-        <div class="ticket-type">
+        <div id="cancel">
           <a href="/index" class="btn btn-danger ticket-type-btn">Cancel</a>
         </div>
       </div>
