@@ -40,7 +40,7 @@
           </div>
         </form:form>
         <div id="cancel">
-          <a href="/index" class="btn btn-danger ticket-type-btn">Cancel</a>
+          <a href="/warning" class="btn btn-danger ticket-type-btn">Cancel</a>
         </div>
       </div>
     </div>
