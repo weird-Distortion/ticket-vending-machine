@@ -14,10 +14,6 @@
     box-shadow: 0 0 1px black;
 }
 
-#fill-btn {
-    margin: auto;
-}
-
 .ticket-option {
     font-size: 25px;
     text-shadow: 0 0 1px orange;
@@ -60,6 +56,14 @@
     text-shadow: 0 0 2px orange;
 }
 
+.data-info {
+    text-shadow: 0 0 2px orange;
+}
+
 #lspd-logo {
     width: 400px;
+}
+
+.warn {
+    line-height: 130px;
 }

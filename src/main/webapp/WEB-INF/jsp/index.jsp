@@ -12,10 +12,13 @@
           </div>
         </c:forEach>
       </div>
-      <div id="fill-btn">
+      <div class="fill-btn">
         <form:form method="post" modelAttribute="machine">
           <button class="btn btn-outline-dark btn-lg" type="submit">Fill machine</button>
         </form:form>
+      </div>
+      <div class="fill-btn">
+        <a href="machine-data" class="btn btn-outline-dark btn-lg">Data</a>
       </div>
     </div>
   </div>
