@@ -14,6 +14,13 @@
           <img src="${pageContext.request.contextPath}../png/tow.png" alt="towel" id="logo">
         </div>
       </div>
+      <div class="col-sm coins-list">
+        <div>Available coins:
+          <c:forEach items="${coinsAvailable}" var="availableCoin">
+            <span class="argument">${availableCoin} |</span>
+          </c:forEach>
+        </div>
+      </div>
       <div class="col-sm border-top border-danger">
         <div>
           <div class="ticket-option">Left: <span class="argument">${moneyLeft}</span></div>

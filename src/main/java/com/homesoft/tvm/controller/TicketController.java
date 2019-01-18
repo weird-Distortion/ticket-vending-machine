@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Controller
 public class TicketController {
@@ -43,6 +46,14 @@ public class TicketController {
             return "success";
         }
 
+        List<String> availableCoinList =
+                machine.getChangeKeeper()
+                        .getMap()
+                        .keySet()
+                        .stream()
+                        .sorted()
+                        .collect(toList());
+
         if (userInputList.isEmpty()) {
             model.addAttribute("moneyLeft", creatorService.getNewTicket(id).getTicketCost());
         } else {
@@ -50,6 +61,7 @@ public class TicketController {
         }
         model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
         model.addAttribute("ticketCost", creatorService.getNewTicket(id).getTicketCost());
+        model.addAttribute("coinsAvailable", availableCoinList);
 
 
         return "ticket";
