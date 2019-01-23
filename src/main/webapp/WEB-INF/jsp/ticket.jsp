@@ -33,10 +33,10 @@
         </div>
         <form:form method="post" modelAttribute="userCoin">
           <div class="ticket-type">
-            <form:input type="number" path="coinValue" step="0.1" min="0" cssClass="coin-input"/>
+            <form:input type="number" path="objCost" step="0.1" min="0" cssClass="coin-input"/>
           </div>
           <div class="ticket-type">
-            <form:button type="submit" path="coinValue" class="btn btn-success ticket-type-btn">Insert</form:button>
+            <form:button type="submit" path="objCost" class="btn btn-success ticket-type-btn">Insert</form:button>
           </div>
         </form:form>
         <div id="cancel">

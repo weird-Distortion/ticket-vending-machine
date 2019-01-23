@@ -1,8 +1,6 @@
 package com.homesoft.tvm.service;
 
-import com.homesoft.tvm.model.Keeper;
-import com.homesoft.tvm.model.Machine;
-import com.homesoft.tvm.model.Ticket;
+import com.homesoft.tvm.model.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,7 +18,7 @@ public class CheckService {
         return true;
     }
 
-    public boolean isEnoughMoney(Ticket ticketType, List<String> userMoney) {
+    public boolean isEnoughMoney(TicketInterface ticketType, List<String> userMoney) {
         BigDecimal userMoneyTotal = new BigDecimal("0.0");
         for (String coin : userMoney) {
             userMoneyTotal = userMoneyTotal.add(BigDecimal.valueOf(Double.valueOf(coin)));
@@ -29,7 +27,7 @@ public class CheckService {
         return ticketType.getTicketCost().compareTo(userMoneyTotal) <= 0;
     }
 
-    public String checkForLeft(List<String> userInput, Ticket ticket) {
+    public String checkForLeft(List<String> userInput, TicketInterface ticket) {
         BigDecimal sum =
                 userInput.stream()
                         .map(coin -> BigDecimal.valueOf(Double.parseDouble(coin)))

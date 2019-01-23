@@ -2,29 +2,19 @@ package com.homesoft.tvm.model;
 
 import java.math.BigDecimal;
 
-public class Ticket {
+public class Ticket extends OutputObject implements TicketInterface {
 
-    private String type;
-    private BigDecimal ticketCost;
-
-    public Ticket(String type, String ticketCost) {
-        this.type = type;
-        this.ticketCost = new BigDecimal(ticketCost);
+    public Ticket(String objType, String objCost) {
+        super(objType, objCost);
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    @Override
     public BigDecimal getTicketCost() {
-        return ticketCost;
+        return getObjCost();
     }
 
-    public void setTicketCost(BigDecimal ticketCost) {
-        this.ticketCost = ticketCost;
+    @Override
+    public String getTicketType() {
+        return getObjType();
     }
 }

@@ -13,14 +13,14 @@ public class MachineInitializer {
         for (CoinCreator coinType : CoinCreator.values()) {
             machine.getChangeKeepers()
                     .forEach(keeper -> keeper.addToKeeper(
-                            String.valueOf(coinType.createNewCoin().getCoinValue()),
+                            String.valueOf(coinType.createNewCoin().getCoinCost()),
                             50));
         }
 
         for (TicketCreator ticketType : TicketCreator.values()) {
             machine.getTicketKeepers()
                     .forEach(keeper -> keeper.addToKeeper(
-                            ticketType.createNewTicket().getType(),
+                            ticketType.createNewTicket().getTicketType(),
                             50));
         }
 

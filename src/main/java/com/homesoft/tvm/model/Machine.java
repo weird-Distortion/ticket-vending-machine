@@ -20,14 +20,6 @@ public class Machine {
         return keepers;
     }
 
-//    public Keeper getTicketKeeper() {
-//        return getTicketKeepers().stream().findFirst().get();
-//    }
-//
-//    public Keeper getChangeKeeper() {
-//        return getChangeKeepers().stream().findFirst().get();
-//    }
-
     public List<Keeper> getChangeKeepers() {
         return this.keepers
                 .stream()

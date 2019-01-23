@@ -2,20 +2,19 @@ package com.homesoft.tvm.model;
 
 import java.math.BigDecimal;
 
-public class Coin {
+public class Coin extends OutputObject implements CoinInterface {
 
-    private BigDecimal coinValue;
-
-    public Coin(String coinValue) {
-        this.coinValue = new BigDecimal(coinValue);
+    public Coin(String objType, String objCost) {
+        super(objType, objCost);
     }
 
-    public BigDecimal getCoinValue() {
-        return coinValue;
+    @Override
+    public BigDecimal getCoinCost() {
+        return getObjCost();
     }
 
-    public void setCoinValue(BigDecimal coinValue) {
-        this.coinValue = coinValue;
+    @Override
+    public String getCoinType() {
+        return getObjType();
     }
-
 }

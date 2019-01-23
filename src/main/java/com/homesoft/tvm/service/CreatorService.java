@@ -1,17 +1,17 @@
 package com.homesoft.tvm.service;
 
-import com.homesoft.tvm.model.Coin;
-import com.homesoft.tvm.model.Ticket;
+import com.homesoft.tvm.model.CoinInterface;
+import com.homesoft.tvm.model.TicketInterface;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreatorService {
 
-    public Ticket getNewTicket(String ticketType) {
+    public TicketInterface getNewTicket(String ticketType) {
         return TicketCreator.valueOf(ticketType).createNewTicket();
     }
 
-    public Coin getNewCoin(String coinType) {
+    public CoinInterface getNewCoin(String coinType) {
         return CoinCreator.valueOf(coinType).createNewCoin();
     }
 }

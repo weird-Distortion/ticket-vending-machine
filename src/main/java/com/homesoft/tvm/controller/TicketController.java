@@ -1,6 +1,7 @@
 package com.homesoft.tvm.controller;
 
 import com.homesoft.tvm.model.Coin;
+import com.homesoft.tvm.model.CoinInterface;
 import com.homesoft.tvm.model.Machine;
 import com.homesoft.tvm.service.CheckService;
 import com.homesoft.tvm.service.CreatorService;
@@ -28,8 +29,8 @@ public class TicketController {
     private CheckService checkService;
 
     @ModelAttribute("userCoin")
-    public Coin setUpCoin() {
-        return new Coin("0");
+    public CoinInterface setUpCoin() {
+        return new Coin("0 Betelgeuse coin","0");
     }
 
     @GetMapping(value = "/ticket")
@@ -37,10 +38,10 @@ public class TicketController {
             @SessionAttribute("machine") Machine machine,
             @SessionAttribute("userInputList") ArrayList<String> userInputList,
             @RequestParam String id,
-            @ModelAttribute("userCoin") Coin coin,
+            @ModelAttribute("userCoin") CoinInterface coin,
             ModelMap model) {
 
-        if (machineService.giveOutTicket(machine, creatorService.getNewTicket(id).getType()).equals("-1")) {
+        if (machineService.giveOutTicket(machine, creatorService.getNewTicket(id).getTicketType()).equals("-1")) {
             model.addAttribute("resultText", "There is no available tickets!");
             return "success";
         }
@@ -58,7 +59,7 @@ public class TicketController {
         } else {
             model.addAttribute("moneyLeft", checkService.checkForLeft(userInputList, creatorService.getNewTicket(id)));
         }
-        model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
+        model.addAttribute("ticketType", creatorService.getNewTicket(id).getTicketType());
         model.addAttribute("ticketCost", creatorService.getNewTicket(id).getTicketCost());
         model.addAttribute("coinsAvailable", availableCoinList);
 
@@ -71,20 +72,19 @@ public class TicketController {
             @SessionAttribute("machine") Machine machine,
             @SessionAttribute("userInputList") ArrayList<String> userInputList,
             @RequestParam String id,
-            @ModelAttribute("userCoin") Coin coin,
+            @ModelAttribute("userCoin") CoinInterface coin,
             ModelMap model) {
 
-        if (checkService.isCoinFake(machine, String.valueOf(coin.getCoinValue()))) {
+        if (checkService.isCoinFake(machine, String.valueOf(coin.getCoinCost()))) {
             userInputList.clear();
             return "busted";
         }
 
-        machine.getUserInput().insertNewCoin(String.valueOf(coin.getCoinValue()));
-        userInputList.add(String.valueOf(coin.getCoinValue()));
+        machine.getUserInput().insertNewCoin(String.valueOf(coin.getCoinCost()));
+        userInputList.add(String.valueOf(coin.getCoinCost()));
 
         if (checkService.isEnoughMoney(creatorService.getNewTicket(id), userInputList)) {
             List<String> tempChange = machineService.giveOutChange(machine, creatorService.getNewTicket(id), userInputList);
-            String ticketType = creatorService.getNewTicket(id).getType();
 
             if (userInputList.containsAll(tempChange)
                     && userInputList.size() == tempChange.size()) {
@@ -96,7 +96,7 @@ public class TicketController {
 
             model.addAttribute("resultText", "Success!");
             model.addAttribute("resultList", tempChange);
-            model.addAttribute("ticketType", creatorService.getNewTicket(id).getType());
+            model.addAttribute("ticketType", creatorService.getNewTicket(id).getTicketType());
             userInputList.clear();
             return "success";
         }

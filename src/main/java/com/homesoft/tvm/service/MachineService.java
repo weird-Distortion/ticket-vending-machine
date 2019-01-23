@@ -1,7 +1,7 @@
 package com.homesoft.tvm.service;
 
 import com.homesoft.tvm.model.Machine;
-import com.homesoft.tvm.model.Ticket;
+import com.homesoft.tvm.model.TicketInterface;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ public class MachineService {
                 .collect(joining(", "));
     }
 
-    public List<String> giveOutChange(Machine machine, Ticket ticketType, List<String> userMoney) {
+    public List<String> giveOutChange(Machine machine, TicketInterface ticketType, List<String> userMoney) {
 
         List<String> resultChangeList = new ArrayList<>();
         List<String> availableChangeList = getAvailableChangeCoins(machine);
@@ -53,9 +53,7 @@ public class MachineService {
 
         resultChangeList.sort(Comparable::compareTo);
 
-        if (
-
-                isEnoughChange(changeToGiveOut)) return resultChangeList;
+        if (isEnoughChange(changeToGiveOut)) return resultChangeList;
 
         return userMoney;
     }

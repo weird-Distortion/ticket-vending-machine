@@ -42,7 +42,7 @@ public class IndexController {
         Map<String, String> ticketMap =
                 Arrays.stream(TicketCreator.values())
                         .collect(toMap(String::valueOf, id ->
-                                id.createNewTicket().getType()));
+                                id.createNewTicket().getTicketType()));
 
         model.addAttribute("ticketTypes", ticketMap);
 
