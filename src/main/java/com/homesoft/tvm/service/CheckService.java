@@ -1,5 +1,6 @@
 package com.homesoft.tvm.service;
 
+import com.homesoft.tvm.model.Keeper;
 import com.homesoft.tvm.model.Machine;
 import com.homesoft.tvm.model.Ticket;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,10 @@ import static java.util.stream.Collectors.toList;
 public class CheckService {
 
     public boolean isCoinFake(Machine machine, String userMoney) {
-        return !machine.getChangeKeeper()
-                .getMap()
-                .keySet()
-                .contains(userMoney);
+        for (Keeper keeper : machine.getChangeKeepers()) {
+            if (keeper.getMap().containsKey(userMoney)) return false;
+        }
+        return true;
     }
 
     public boolean isEnoughMoney(Ticket ticketType, List<String> userMoney) {
@@ -27,11 +28,6 @@ public class CheckService {
 
         return ticketType.getTicketCost().compareTo(userMoneyTotal) <= 0;
     }
-
-//    public boolean isEnoughTickets(Machine machine, Ticket ticketType) {
-//
-//        return machine.getTicketKeeper().getMap().get(ticketType.getType()) > 0;
-//    }
 
     public String checkForLeft(List<String> userInput, Ticket ticket) {
         BigDecimal sum =

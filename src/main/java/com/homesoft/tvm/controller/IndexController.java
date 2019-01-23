@@ -56,11 +56,6 @@ public class IndexController {
 
         machineService.fillTicketKeeper(machine);
         machineService.fillChangeKeeper(machine);
-        System.out.println(machine.getTicketKeeper().getMap().keySet().toString());
-        System.out.println(machine.getTicketKeeper().getMap().values().toString());
-        System.out.println();
-        System.out.println(machine.getChangeKeeper().getMap().keySet().toString());
-        System.out.println(machine.getChangeKeeper().getMap().values().toString());
 
         return "redirect:/index";
     }

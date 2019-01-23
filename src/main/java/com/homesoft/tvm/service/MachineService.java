@@ -8,11 +8,18 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.joining;
+
 @Service
 public class MachineService {
 
     public String giveOutTicket(Machine machine, String type) {
-        return machine.getTicketKeeper().giveOut(type);
+        return machine
+                .getTicketKeepers()
+                .stream()
+                .map(keeper ->
+                        keeper.giveOut(type))
+                .collect(joining(", "));
     }
 
     public List<String> giveOutChange(Machine machine, Ticket ticketType, List<String> userMoney) {
@@ -25,19 +32,30 @@ public class MachineService {
         for (int i = availableChangeList.size() - 1; i > 0; i--) {
             BigDecimal coinToCompare = BigDecimal.valueOf(Double.valueOf(availableChangeList.get(i)));
 
-            if (changeToGiveOut.compareTo(coinToCompare) >= 0) {
+            if (changeToGiveOut.compareTo(coinToCompare) >= 0 &&
+                    !machine.getChangeKeepers()
+                            .stream()
+                            .map(keeper ->
+                                    keeper.giveOut(String.valueOf(coinToCompare)))
+                            .collect(joining(", "))
+                            .equals("-1")) {
 
-                if (!machine.getChangeKeeper().giveOut(String.valueOf(coinToCompare)).equals("-1")) {
-                    changeToGiveOut = changeToGiveOut.subtract(coinToCompare);
-                    resultChangeList.add(machine.getChangeKeeper().giveOut(String.valueOf(coinToCompare)));
-                    i++;
-                }
+                changeToGiveOut = changeToGiveOut.subtract(coinToCompare);
+                resultChangeList
+                        .add(machine.getChangeKeepers()
+                                .stream()
+                                .map(keeper ->
+                                        keeper.giveOut(String.valueOf(coinToCompare)))
+                                .collect(joining()));
+                i++;
             }
         }
 
         resultChangeList.sort(Comparable::compareTo);
 
-        if (isEnoughChange(changeToGiveOut)) return resultChangeList;
+        if (
+
+                isEnoughChange(changeToGiveOut)) return resultChangeList;
 
         return userMoney;
     }
@@ -59,11 +77,12 @@ public class MachineService {
 
         List<String> availableChangeList = new ArrayList<>();
 
-        machine.getChangeKeeper()
-                .getMap()
-                .keySet()
-                .forEach(key ->
-                        availableChangeList.add(String.valueOf(key)));
+        machine.getChangeKeepers()
+                .forEach(keeper ->
+                        keeper.getMap()
+                                .keySet()
+                                .forEach(key ->
+                                        availableChangeList.add(String.valueOf(key))));
 
         availableChangeList.sort(Comparable::compareTo);
         return availableChangeList;
@@ -71,23 +90,23 @@ public class MachineService {
 
     public void fillChangeKeeper(Machine machine) {
         //todo to encapsulate
-        machine.getChangeKeeper()
-                .getMap()
-                .keySet()
-                .forEach(coinType ->
-                        machine.getChangeKeeper()
-                                .getMap()
-                                .computeIfPresent(coinType, (k, v) -> v + 50));
+        machine.getChangeKeepers()
+                .forEach(keeper ->
+                        keeper.getMap()
+                                .keySet()
+                                .forEach(coinType ->
+                                        keeper.getMap()
+                                                .computeIfPresent(coinType, (k, v) -> v + 50)));
     }
 
     public void fillTicketKeeper(Machine machine) {
         //todo to encapsulate
-        machine.getTicketKeeper()
-                .getMap()
-                .keySet()
-                .forEach(ticketType ->
-                        machine.getTicketKeeper()
-                                .getMap()
-                                .computeIfPresent(ticketType, (k, v) -> v + 50));
+        machine.getTicketKeepers()
+                .forEach(keeper ->
+                        keeper.getMap()
+                                .keySet()
+                                .forEach(ticketType ->
+                                        keeper.getMap()
+                                                .computeIfPresent(ticketType, (k, v) -> v + 50)));
     }
 }

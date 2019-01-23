@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -47,10 +46,10 @@ public class TicketController {
         }
 
         List<String> availableCoinList =
-                machine.getChangeKeeper()
-                        .getMap()
-                        .keySet()
+                machine.getChangeKeepers()
                         .stream()
+                        .flatMap(keeper ->
+                                keeper.getMap().keySet().stream())
                         .sorted()
                         .collect(toList());
 

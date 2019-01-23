@@ -3,7 +3,7 @@ package com.homesoft.tvm.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TicketKeeper implements Keeper {
+public class TicketKeeper extends Keeper implements TicketsKeeping {
 
     private Map<String, Integer> map;
 
@@ -12,21 +12,38 @@ public class TicketKeeper implements Keeper {
     }
 
     @Override
-    public String giveOut(String type) {
-        if (isPositive(type)) {
-            map.computeIfPresent(type, (k, v) -> v - 1);
-            return type;
+    public void addToKeeper(String key, Integer value) {
+        putTicketsToKeeper(key, value);
+    }
+
+    @Override
+    public String giveOut(String ticketType) {
+        return giveOutOneTicket(ticketType);
+    }
+
+    @Override
+    public Map<String, Integer> getMap() {
+        return getTicketsMap();
+    }
+
+    private void putTicketsToKeeper(String key, Integer value) {
+        map.putIfAbsent(key, value);
+    }
+
+    private String giveOutOneTicket(String ticketType) {
+        if (isEnoughTickets(ticketType)) {
+            map.computeIfPresent(ticketType, (k, v) -> v - 1);
+            return ticketType;
         }
 
         return "-1";
     }
 
-    @Override
-    public Map<String, Integer> getMap() {
-        return map;
+    private boolean isEnoughTickets(String type) {
+        return map.get(type) > 0;
     }
 
-    private boolean isPositive(String type) {
-        return map.get(type) > 0;
+    private Map<String, Integer> getTicketsMap() {
+        return this.map;
     }
 }

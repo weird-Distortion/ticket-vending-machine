@@ -1,31 +1,51 @@
 package com.homesoft.tvm.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
+
 public class Machine {
 
-    private Keeper ticketKeeper;
-    private Keeper changeKeeper;
+    private List<Keeper> keepers;
     private UserInput userInput;
 
     public Machine() {
-        this.ticketKeeper = new TicketKeeper();
-        this.changeKeeper = new ChangeKeeper();
+        this.keepers = new ArrayList<>(asList(new TicketKeeper(), new ChangeKeeper()));
         this.userInput = new UserInput();
     }
 
-    public Keeper getTicketKeeper() {
-        return ticketKeeper;
+    public List<Keeper> getAllKeepers() {
+        return keepers;
     }
 
-    public void setTicketKeeper(Keeper ticketKeeper) {
-        this.ticketKeeper = ticketKeeper;
+//    public Keeper getTicketKeeper() {
+//        return getTicketKeepers().stream().findFirst().get();
+//    }
+//
+//    public Keeper getChangeKeeper() {
+//        return getChangeKeepers().stream().findFirst().get();
+//    }
+
+    public List<Keeper> getChangeKeepers() {
+        return this.keepers
+                .stream()
+                .filter(keeper ->
+                        keeper instanceof ChangeKeeping)
+                .collect(toList());
     }
 
-    public Keeper getChangeKeeper() {
-        return changeKeeper;
+    public List<Keeper> getTicketKeepers() {
+        return this.keepers
+                .stream()
+                .filter(keeper ->
+                        keeper instanceof TicketsKeeping)
+                .collect(toList());
     }
 
-    public void setChangeKeeper(Keeper changeKeeper) {
-        this.changeKeeper = changeKeeper;
+    public void setKeepers(List<Keeper> keepers) {
+        this.keepers = keepers;
     }
 
     public UserInput getUserInput() {

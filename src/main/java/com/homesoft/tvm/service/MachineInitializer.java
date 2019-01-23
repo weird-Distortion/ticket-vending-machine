@@ -9,19 +9,19 @@ public class MachineInitializer {
     public Machine initializeMachine() {
         Machine machine = new Machine();
 
-        //todo: encapsulate somehow (?)
+        //todo encapsulate using class that holds creators
         for (CoinCreator coinType : CoinCreator.values()) {
-            machine.getChangeKeeper()
-                    .addToKeeper(machine.getChangeKeeper().getMap(),
+            machine.getChangeKeepers()
+                    .forEach(keeper -> keeper.addToKeeper(
                             String.valueOf(coinType.createNewCoin().getCoinValue()),
-                            50);
+                            50));
         }
 
         for (TicketCreator ticketType : TicketCreator.values()) {
-            machine.getTicketKeeper()
-                    .addToKeeper(machine.getTicketKeeper().getMap(),
+            machine.getTicketKeepers()
+                    .forEach(keeper -> keeper.addToKeeper(
                             ticketType.createNewTicket().getType(),
-                            50);
+                            50));
         }
 
         return machine;
